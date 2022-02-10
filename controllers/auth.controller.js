@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
+// requerimos passport para el doLogin
 const passport = require('passport');
+// requerimos el modelo User
 const User = require('../models/User.model')
 
 
@@ -47,8 +49,23 @@ module.exports.doRegister = (req, res, next) => {
 
 //Una vez regitrados, debemos loguearnos
 //necesitamos antes configurar passport
+//una vez configurado passport podemos continuar
 module.exports.doLogin = (req, res, next) => {
-
+  passport.authenticate('local-auth'), (err, user, validations) => {
+    if (err) {
+      next(err)
+    } else if(!user) {
+      res.status(404).render('auth/login', { errorMessage: validations.error})
+    } else {
+      req.login(user, (loginError) =>{
+        if (loginError){
+          next(loginError)
+        } else {
+          res.redirect('/profile')
+        }
+      })
+    }
+  }
 
 
 
