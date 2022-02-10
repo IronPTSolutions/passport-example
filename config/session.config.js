@@ -10,11 +10,13 @@ const sessionConfig = expressSession({
   saveUninitialized: false,
   cookie: {
     secure: process.env.COOKIE_SECURE || false,
+    //milisegundos
     maxAge: 24 * 3600 * 1000 * sessionMaxAge,
     httpOnly: true
   },
   store: new MongoStore({
     mongoUrl: DB,
+    //segundos, cosas de la vida de mongoose inexplicables
     ttl: 24 * 3600 * sessionMaxAge,
   })
 })

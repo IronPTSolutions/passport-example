@@ -12,8 +12,8 @@ router.get('/', (req, res, next) => {
 })
 
 // añadimos un proceso mas a la tuberia
-// si isNotAuthenticated solo le dejamos ver login y register
-// si isAutheticated le dejamos ver perfil y logout.
+// si isNotAuthenticated solo le dejamos acceder login y register
+// si isAutheticated le dejamos acceder perfil y logout.
 
 
 router.get('/register', authMiddleware.isNotAuthenticated, authController.register)
