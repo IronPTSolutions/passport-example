@@ -17,3 +17,5 @@ process.on('SIGINT', function () {
 });
 
 module.exports.DB = MONGODB_URI;
+
+//exportamos DB para facilitarnos las cosas en session.config.js
