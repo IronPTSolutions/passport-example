@@ -51,23 +51,22 @@ module.exports.doRegister = (req, res, next) => {
 //necesitamos antes configurar passport
 //una vez configurado passport podemos continuar
 module.exports.doLogin = (req, res, next) => {
-  passport.authenticate('local-auth'), (err, user, validations) => {
+  passport.authenticate('local-auth', (err, user, validations) => {
     if (err) {
       next(err)
     } else if(!user) {
-      res.status(404).render('auth/login', { errorMessage: validations.error})
+      res.status(404).render('auth/login', { errorMessage: validations.error })
     } else {
-      req.login(user, (loginError) =>{
-        if (loginError){
+      req.login(user, (loginError) => {
+        if (loginError) {
           next(loginError)
         } else {
           res.redirect('/profile')
         }
       })
     }
-  }
-
-
-
+  })(req, res, next)
 }
 
+// ese (req, res, next) es xq todo lo anterior es como si fuese
+//una funcion por si misma. 
