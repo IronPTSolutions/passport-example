@@ -1,8 +1,15 @@
+
+// requerimos mongoose para la base de datos
 const mongoose = require('mongoose');
+// requerimos bcrypt para el hasheo de la contraseña
 const bcrypt = require('bcrypt');
 
+// forma del email
 const EMAIL_PATTERN = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+//longitud del email
 const PASSWORD_PATTERN = /^.{8,}$/i;
+// numero de algoritmos de la contraseña
+// 10 es razonable tanto en seguridad como en velocidad
 const SALT_ROUNDS = 10;
 
 const userSchema = new mongoose.Schema({
@@ -40,7 +47,7 @@ userSchema.pre('save', function(next) {
   }
 })
 
-
+//utilizamos el metodo .compare
 userSchema.methods.checkPassword = function(password) {
   return bcrypt.compare(password, this.password)
 }

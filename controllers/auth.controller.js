@@ -3,15 +3,19 @@ const passport = require('passport');
 const User = require('../models/User.model')
 
 
-
+//pintamos el registro
 module.exports.register = (req, res, next) => {
   res.render('auth/register', )
 }
 
+//pintamos el login
 module.exports.login = (req, res, next) => {
   res.render('auth/login', )
 }
 
+
+// lo primero que hacemos en una pagina para poder usar su contenido es
+//REGISTRARSE
 module.exports.doRegister = (req, res, next) => {
   const user = req.body;
 
@@ -39,5 +43,14 @@ module.exports.doRegister = (req, res, next) => {
       next(err)
     }
   })
+}
+
+//Una vez regitrados, debemos loguearnos
+//necesitamos antes configurar passport
+module.exports.doLogin = (req, res, next) => {
+
+
+
+
 }
 
