@@ -3,10 +3,14 @@ require('dotenv/config');
 const createError = require('http-errors');
 const express = require('express');
 const logger = require('morgan');
-const path = require('path')
+const path = require('path');
+const passport = require('passport');
 
 require('./config/db.config');
 require('./config/hbs.config');
+require('./config/passport.config');
+
+/* const sessionConfig = require('./config/session.config'); */
 
 const app = express();
 
