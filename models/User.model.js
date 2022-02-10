@@ -5,7 +5,7 @@ const EMAIL_PATTERN = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+
 const PASSWORD_PATTERN = /^.{8,}$/i;
 const SALT_ROUNDS = 10;
 
-const userSchema = new Schema({
+const userSchema = new mongoose.Schema({
   name: {
     type: String,
     required: 'name is required',
@@ -23,6 +23,25 @@ const userSchema = new Schema({
     match: [PASSWORD_PATTERN, 'password needs at least 8 chars'],
   },
 });
+
+//hash del password, y funcion NO ARROW porque utilizamos el this.
+userSchema.pre('save', function(next) {
+  const user = this;
+
+  if (user.isModified('password')) {
+    bcrypt.hash(user.password, SALT_ROUNDS)
+    .then((hash) => {
+      user.password = hash
+      next()
+    })
+    .catch(err => (err))
+  }else {
+    next()
+  }
+})
+
+
+
 
 const User = mongoose.model('User', userSchema);
 
