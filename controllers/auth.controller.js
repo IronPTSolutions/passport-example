@@ -70,3 +70,11 @@ module.exports.doLogin = (req, res, next) => {
 
 // ese (req, res, next) es xq todo lo anterior es como si fuese
 //una funcion por si misma. 
+
+
+module.exports.logout = (req, res, next) => {
+  req.logout();
+  res.redirect('/login');
+}
+
+//creado el logout
