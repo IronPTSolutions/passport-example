@@ -33,7 +33,8 @@ passport.use(
           if (!user) {
             next(null, false, { error: "Wrong email or password" });
           } else {
-            return user.checkPassword(password).then((match) => {
+            return user.checkPassword(password)
+            .then((match) => {
               if (!match) {
                 next(null, false, { error: "Wrong email or password" });
               } else {
