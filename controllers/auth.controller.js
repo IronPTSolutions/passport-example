@@ -27,15 +27,18 @@ module.exports.doRegister = (req, res, next) => {
   }
 
   //Buscamos el usuario
-  User.findOne({ email: user.email})
-  .then((userFound) => {
-    if (userFound) {
-      renderWithErrors({email: 'Email already in use'})
-    } else {
-      return User.create(user)
-      .then(() => {
-        res.redirect('/login')
-      })
+  User.findOne({ email: user.email })
+    .then((userFound) => {
+      if (userFound) {
+        renderWithErrors({ email: 'Email already in use' })
+      } else {
+        if (req.file) {
+          user.image = req.file.path
+        }
+        return User.create(user)
+          .then(() => {
+            res.redirect('/login')
+          })
     }
   })
   .catch(err => {
@@ -47,17 +50,16 @@ module.exports.doRegister = (req, res, next) => {
   })
 }
 
-//Una vez regitrados, debemos loguearnos
-//necesitamos antes configurar passport
-//una vez configurado passport podemos continuar
-module.exports.doLogin = (req, res, next) => {
-  passport.authenticate('local-auth', (err, user, validations) => {
+
+const doLogin = (req, res, next, provider = 'local-auth') => {
+  passport.authenticate(provider, (err, user, validations) => {
     if (err) {
       next(err)
     } else if(!user) {
       res.status(404).render('auth/login', { errorMessage: validations.error })
     } else {
       req.login(user, (loginError) => {
+        console.log({user});
         if (loginError) {
           next(loginError)
         } else {
@@ -67,6 +69,38 @@ module.exports.doLogin = (req, res, next) => {
     }
   })(req, res, next)
 }
+
+//Una vez regitrados, debemos loguearnos
+//necesitamos antes configurar passport
+//una vez configurado passport podemos continuar
+// module.exports.doLogin = (req, res, next) => {
+//   passport.authenticate('local-auth', (err, user, validations) => {
+//     if (err) {
+//       next(err)
+//     } else if(!user) {
+//       res.status(404).render('auth/login', { errorMessage: validations.error })
+//     } else {
+//       req.login(user, (loginError) => {
+//         if (loginError) {
+//           next(loginError)
+//         } else {
+//           res.redirect('/profile')
+//         }
+//       })
+//     }
+//   })(req, res, next)
+// }
+
+
+
+module.exports.doLogin = (req, res, next) => {
+  doLogin(req, res, next)
+}
+
+module.exports.doLoginGoogle = (req, res, next) => {
+  doLogin(req, res, next, 'google-auth')
+}
+
 
 // ese (req, res, next) es xq todo lo anterior es como si fuese
 //una funcion por si misma. 
