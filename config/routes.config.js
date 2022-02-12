@@ -29,4 +29,6 @@ router.get('/auth/google/callback', authController.doLoginGoogle)
 
 router.get('/profile', authMiddleware.isAuthenticated, usersController.profile)
 
+router.get('/activate/:token', authMiddleware.isNotAuthenticated, authController.activate)
+
 module.exports = router;

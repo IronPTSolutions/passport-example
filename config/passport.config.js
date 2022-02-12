@@ -34,7 +34,11 @@ passport.use('local-auth', new LocalStrategy(
               if (!match) {
                 next(null, false, { error: 'Email or password are incorrect' })
               } else {
-                next(null, user)
+                if (user.active) {
+                  next(null, user)
+                } else {
+                  next(null, false, { error: 'You have to active your account' })
+                }
               }
             })
         }
