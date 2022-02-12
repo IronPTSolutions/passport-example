@@ -55,6 +55,7 @@ const login = (req, res, next, provider) => {
         if (loginError) {
           next(loginError)
         } else {
+          req.flash('flashMessage', 'Has iniciado sesión con éxito')
           res.redirect('/profile')
         }
       })
@@ -73,4 +74,15 @@ module.exports.doLoginGoogle = (req, res, next) => {
 module.exports.logout = (req, res, next) => {
   req.logout();
   res.redirect('/login');
+}
+
+module.exports.activate = (req, res, next) => {
+  const token = req.params.token;
+
+  User.findOneAndUpdate({ activationToken: token, active: false }, { active: true })
+    .then((u) => {
+      req.flash('flashMessage', 'Has activado tu cuenta con éxito!')
+      res.redirect('/login')
+    })
+    .catch(err => next(err))
 }

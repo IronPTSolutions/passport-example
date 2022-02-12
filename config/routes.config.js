@@ -28,4 +28,6 @@ router.get('/logout', authMiddleware.isAuthenticated, authController.logout)
 
 router.get('/profile', authMiddleware.isAuthenticated, usersController.profile)
 
+router.get('/activate/:token', authController.activate)
+
 module.exports = router;
