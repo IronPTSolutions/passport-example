@@ -11,6 +11,7 @@
           type="text"
           class="form-control {{#if errors.name}}is-invalid{{/if}}"
           placeholder="Name"
+          required
         >
         {{#if errors.name}}
           <div class="invalid-feedback">{{errors.name}}</div>
@@ -25,6 +26,7 @@
           type="email"
           class="form-control {{#if errors.email}}is-invalid{{/if}}"
           placeholder="example@expample.com"
+          required
         >
         {{#if errors.email}}
           <div class="invalid-feedback">{{errors.email}}</div>
@@ -39,6 +41,7 @@
           type="password"
           class="form-control {{#if errors.password}}is-invalid{{/if}}"
           placeholder="Password"
+          required
         >
         {{#if errors.password}}
           <div class="invalid-feedback">{{errors.password}}</div>
