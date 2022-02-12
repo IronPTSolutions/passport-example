@@ -23,6 +23,9 @@ module.exports.doRegister = (req, res, next) => {
       if (userFound) {
         renderWithErrors({ email: 'Email already in use' })
       } else {
+        if (req.file) {
+          user.image = req.file.path
+        }
         return User.create(user)
           .then(() => {
             res.redirect('/login')

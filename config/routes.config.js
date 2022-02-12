@@ -2,6 +2,7 @@ const express = require('express');
 const passport = require('passport');
 
 const router = express.Router();
+const upload = require('../config/storage.config');
 
 const authController = require('../controllers/auth.controller');
 const usersController = require('../controllers/users.controller');
@@ -18,7 +19,7 @@ router.get('/', (req, res, next) => {
 })
 
 router.get('/register', authMiddleware.isNotAuthenticated, authController.register)
-router.post('/register', authMiddleware.isNotAuthenticated, authController.doRegister)
+router.post('/register', authMiddleware.isNotAuthenticated, upload.single('image'), authController.doRegister)
 router.get('/login', authMiddleware.isNotAuthenticated, authController.login)
 router.post('/login', authMiddleware.isNotAuthenticated, authController.doLogin)
 router.get('/logout', authMiddleware.isAuthenticated, authController.logout)
