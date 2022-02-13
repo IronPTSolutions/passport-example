@@ -1,0 +1,10 @@
+.login-box{
+    min-width: 400px;
+}
+
+.login-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+
