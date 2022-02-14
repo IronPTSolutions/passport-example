@@ -1,6 +1,13 @@
-<h1>Hello {{currentUser.name}} - {{currentUser.email}}</h1>
+<h1>Hello {{currentUser.name}}</h1>
 <br />
-<iframe
+
+{{#if currentUser.image}}
+  <img src="{{currentUser.image}}" class="img-thumbnail" alt="user profile pic">
+{{/if}}
+
+<br />
+
+{{!-- <iframe
   src="https://giphy.com/embed/ASd0Ukj0y3qMM"
   width="480"
   height="360"
@@ -9,4 +16,4 @@
   allowFullScreen
 ></iframe><p><a
     href="https://giphy.com/gifs/the-simpsons-hello-hi-ASd0Ukj0y3qMM"
-  >via GIPHY</a></p>
+  >via GIPHY</a></p> --}}
