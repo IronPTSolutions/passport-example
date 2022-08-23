@@ -1,34 +1,47 @@
-<div class="mt-4 row justify-content-center">
-  <div class="col-4">
-    <h2 class="text-center">LOGIN</h2>
-    <form class="mt-4" method="POST" action="/login">
-      <div class="form-group mb-3">
-        <label for="email">Email</label>
+<div class="row justify-content-center mt-4">
+  <div class="col col-sm-8 col-md-6 col-lg-4">
+    <div class="intro-register-img mb-4">
+      <img src="https://building.co/wp-content/uploads/2017/01/ironhack-logo.png" width="100" class="mx-auto d-block" alt="intro" >
+    </div>
+    <form action="/login" method="post">
+      <div class="input-group mb-2">
         <input
-          id="email"
-          value="{{user.email}}"
+          type="text"
           name="email"
-          type="email"
-          class="form-control {{#if errors.email}}is-invalid{{/if}}"
-          placeholder="Enter name"
+          class="custom-form-control form-control py-2 ps-4 {{#if errors}}is-invalid{{/if}}"
+          placeholder="Email: user@example.org"
+          aria-label="User email"
+          value="{{ user.email }}"
         >
       </div>
-      <div class="form-group mb-3">
-        <label for="password">Password</label>
+
+      <div class="input-group mb-3">
         <input
-          id="password"
-          name="password"
+          id="password-input"
           type="password"
-          class="form-control {{#if errors.email}}is-invalid{{/if}}"
+          name="password"
+          class="custom-form-control form-control py-2 ps-4 {{#if errors}}is-invalid{{/if}}"
           placeholder="Password"
+          aria-label="User password"
         >
+        <button class="btn btn-outline-secondary password-toggle c-dark" type="button">
+          <i id="password-icon" class="fa fa-eye-slash fa-fw"></i>
+        </button>
       </div>
-      {{#if errors.email}}
-        <div class="text-danger text-small mb-2">
-          {{errors.email}}
+
+      {{#if message}}<div class="text-center mb-2">{{message}}</div>{{/if}}
+      {{#if errors}}<div class="text-danger text-center mb-2">{{ errors }}</div>{{/if}}
+
+      <div class="d-grid gap-2">
+        <button type="submit" class="btn btn-primary bg-light-green border-0">Login</button>
+        <div class="d-grid gap-2 mt-2">
+          <a href="/login/google" class="btn btn-danger border-0">
+            <i class="fa fa-google"></i>
+            Login with Google
+          </a>
         </div>
-      {{/if}}
-      <button type="submit" class="btn btn-primary">Submit</button>
+        
+      </div>
     </form>
   </div>
 </div>
