@@ -14,5 +14,6 @@ router.get('/login', authMiddleware.isNotAuthenticated, authController.login)
 router.post("/register", authMiddleware.isNotAuthenticated, authController.doRegister)
 router.post('/login', authMiddleware.isNotAuthenticated, authController.doLogin)
 router.get("/profile", authMiddleware.isAuthenticated, authController.profile)
+router.get("/logout", authController.doLogout)
 
 module.exports = router;
