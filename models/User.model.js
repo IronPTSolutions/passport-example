@@ -5,7 +5,7 @@ const EMAIL_PATTERN = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+
 const PASSWORD_PATTERN = /^.{8,}$/i;
 const SALT_ROUNDS = 10;
 
-const userSchema = new Schema({
+const userSchema = new mongoose.Schema({
   name: {
     type: String,
     required: 'name is required',
@@ -22,7 +22,28 @@ const userSchema = new Schema({
     required: 'password is required',
     match: [PASSWORD_PATTERN, 'password needs at least 8 chars'],
   },
+  googleID: {
+    type: String
+  },
 });
+
+userSchema.pre('save', function (next) {
+  const rawPassword = this.password;
+  if (this.isModified('password')) {   //PREGUNTAR this.isModified-----------------------------------------------------------
+    bcrypt.hash(rawPassword, SALT_ROUNDS)
+      .then(hash => {
+        this.password = hash;
+        next()
+      })
+      .catch(err => next(err))
+  } else {
+    next();
+  }
+});
+
+userSchema.methods.checkPassword = function (passwordToCompare) {
+  return bcrypt.compare(passwordToCompare, this.password);
+}
 
 const User = mongoose.model('User', userSchema);
 
