@@ -4,8 +4,7 @@ const express = require('express');
 const logger = require('morgan');
 const passport = require('passport');
 const createError = require('http-errors');
-const { sessionConfig, loggedUser } = require('./config/session.config') //PREGUNTAR ESTO! SI QUITO LOGGEDUSER ME SALTA ERROR app.use() requires a middleware function
-
+const { sessionConfig } = require('./config/session.config') 
 const router = require('./config/routes.config');
 require('./config/db.config');
 require('./config/hbs.config');

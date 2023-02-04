@@ -77,6 +77,10 @@ module.exports.doLogin = (req, res, next) => {
   doLoginWithStrategy(req, res, next)
 }
 
+module.exports.doLoginGoogle = (req, res, next) => {
+  doLoginWithStrategy(req, res, next, 'google-auth')
+}
+
 module.exports.profile = (req, res, next) => {
   res.render("user/profile")
 }
