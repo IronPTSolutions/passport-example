@@ -24,16 +24,18 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-userSchema.pre('save', function (next) {
+userSchema.pre('save', function(next) {
   const rawPassword = this.password;
+  
   if (this.isModified('password')) {
     bcrypt.hash(rawPassword, SALT_ROUNDS)
     .then(hash => {
-      this.password = hash
+      this.password = hash;
+      next()
     })
-    .catch(next)
+    .catch(err => console.error(err))
   } else {
-    next();
+    next()
   }
 });
 

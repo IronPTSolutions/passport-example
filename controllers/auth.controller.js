@@ -19,11 +19,11 @@ module.exports.doRegister = (req, res, next) => {
   User.findOne({ email: req.body.email })
     .then((user) => {
       if (!user) {
-        console.log({user})
         return User.create(req.body)
         .then((user) => {
+          console.log({user})
           console.info(`${user.name} has been created!`);
-          res.render('auth/login');
+          res.redirect('/login');
         });
       } else {
         renderWithErrors({ 
