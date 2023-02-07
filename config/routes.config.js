@@ -17,7 +17,7 @@ router.post('/register', authMiddleware.isNotAuthenticated, authController.doReg
 router.get('/login', authMiddleware.isNotAuthenticated, authController.login)
 router.post('/login', authMiddleware.isNotAuthenticated, authController.doLogin)
 
-router.get('logout', authMiddleware.isAuthenticated, authController.logOut)
+router.get('/logout', authMiddleware.isAuthenticated, authController.logOut)
 
 router.get('/profile', authMiddleware.isAuthenticated, userController.profile)
 

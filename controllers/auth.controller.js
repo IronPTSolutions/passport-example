@@ -44,7 +44,7 @@ module.exports.doLogin = (req, res, next) => {
     res.status(404).render('auth/login', {user: req.body, errorMessage: validations.error})
   } else {
     req.login(user, (loginErr) => {
-      if (!loginErr) {
+      if (loginErr) {
         next(loginErr)
       } else {
         res.redirect('/profile')
