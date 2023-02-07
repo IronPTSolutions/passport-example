@@ -75,6 +75,10 @@ module.exports.doLogin = (req, res, next) => {
   doLoginWithStrategy(req, res, next)
 };
 
+module.exports.doLoginGoogle = (req, res, next) => {
+  doLoginWithStrategy(req, res, next, 'google-auth')
+};
+
 module.exports.doLogout = (req, res, next) => {
   req.session.destroy()
   res.redirect('/login')
