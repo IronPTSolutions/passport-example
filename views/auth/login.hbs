@@ -1,7 +1,7 @@
 <div class="mt-4 row justify-content-center">
   <div class="col-4">
     <h2 class="text-center">LOGIN</h2>
-    <form class="mt-4" method="POST" action="/login">
+    <form class="mt-4" action="/login" method="POST">
       <div class="form-group mb-3">
         <label for="email">Email</label>
         <input
@@ -9,7 +9,7 @@
           value="{{user.email}}"
           name="email"
           type="email"
-          class="form-control {{#if errors.email}}is-invalid{{/if}}"
+          class="form-control {{#if errorMessage}}is-invalid{{/if}}"
           placeholder="Enter name"
         >
       </div>
@@ -19,12 +19,12 @@
           id="password"
           name="password"
           type="password"
-          class="form-control {{#if errors.email}}is-invalid{{/if}}"
+          class="form-control {{#if errorMessage}}is-invalid{{/if}}"
           placeholder="Password"
         >
       </div>
         <div class="text-danger text-small mb-2">
-          {{errors.email}}
+          {{errorMessage}}
         </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>

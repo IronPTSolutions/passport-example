@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const passport = require('passport')
 const User = require("../models/User.model");
 
 module.exports.register = (req, res, next) => {
@@ -42,5 +43,40 @@ module.exports.doRegister = (req, res, next) => {
 
 module.exports.login = (req, res, next) => {
   res.render("auth/login");
+};
+
+const doLoginWithStrategy = (req, res, next, strategy = 'local-auth') => {
+  const { email, password } = req.body;
+  if (strategy === "local-auth") {
+    if (!email || !password) {
+      res.status(404).render('auth/login', { errorMessage: 'Email or password are incorrect' })
+    }
+  }
+
+  passport.authenticate(strategy, (err, user, validations) => {
+    if (err) {
+      next(err)
+    } else if (!user) {
+      console.log({ errorMessage: validations.error })
+      res.status(404).render('auth/login', { user: { email }, errorMessage: validations.error })
+    } else {
+      req.login(user, (loginError) => {
+        if (loginError) {
+          next(loginError)
+        } else {
+          res.redirect('/profile')
+        }
+      })
+    }
+  })(req, res, next)
+};
+
+module.exports.doLogin = (req, res, next) => {
+  doLoginWithStrategy(req, res, next)
+};
+
+module.exports.doLogout = (req, res, next) => {
+  req.session.destroy()
+  res.redirect('/login')
 };
 
