@@ -3,7 +3,7 @@ require('dotenv/config');
 const createError = require('http-errors');
 const express = require('express');
 const logger = require('morgan');
-const path = require('path')
+const path = require('path');
 
 require('./config/db.config');
 require('./config/hbs.config');
@@ -13,15 +13,18 @@ const app = express();
 /**
  * Middlewares
  */
+app.use(logger('dev'));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(logger('dev'));
 
 /**
  * View setup
  */
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
+
+// Session middleware
+
 
 /**
  * Configure routes
