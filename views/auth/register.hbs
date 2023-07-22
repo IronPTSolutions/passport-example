@@ -24,7 +24,7 @@
           name="email"
           type="email"
           class="form-control {{#if errors.email}}is-invalid{{/if}}"
-          placeholder="example@expample.com"
+          placeholder="example@example.com"
         >
         {{#if errors.email}}
           <div class="invalid-feedback">{{errors.email}}</div>
@@ -44,6 +44,12 @@
           <div class="invalid-feedback">{{errors.password}}</div>
         {{/if}}
       </div>
+
+      <!--<div class="input-group mb-3">
+        <input type="file" name="avatar"
+          class="custom-form-control form-control border-0 py-2 ps-4 {{#if errors.password}}is-invalid{{/if}}">
+      </div>-->
+
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
   </div>
