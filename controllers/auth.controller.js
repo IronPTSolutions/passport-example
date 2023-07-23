@@ -11,7 +11,7 @@ module.exports.doRegister = (req, res, next) => {
 
   // { email: 'Already in use' }
   const renderWithErrors = (errors) => {
-    res.render("auth/register", { error, user });
+    res.render("auth/register", { errors, user });
   };
 
   User.findOne({ email: user.email })
@@ -55,7 +55,7 @@ module.exports.doLogin = (req, res, next) => {
   })(req, res, next);
 };
 
-module.exports.logout = (req,res, next) => {
+module.exports.logout = (req, res, next) => {
   req.logout();
-  res.redirect('/login');
-}
+  res.redirect("/login");
+};
