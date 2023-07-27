@@ -1,7 +1,7 @@
 <div class="row justify-content-center mt-4">
   <div class="col-sm-4">
     <h1>Register</h1>
-    <form method="POST" action="/register">
+    <form method="POST" action="/register" enctype="multipart/form-data">
       <div class="form-group mb-3">
         <label for="name">Name</label>
         <input
@@ -45,10 +45,10 @@
         {{/if}}
       </div>
 
-      <!--<div class="input-group mb-3">
+      <div class="input-group mb-3">
         <input type="file" name="avatar"
           class="custom-form-control form-control border-0 py-2 ps-4 {{#if errors.password}}is-invalid{{/if}}">
-      </div>-->
+      </div>
 
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>

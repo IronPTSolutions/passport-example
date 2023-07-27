@@ -1,0 +1,17 @@
+<h1 class="mt-3">User profile</h1>
+
+{{#if currentUser}}
+<div class="d-flex mt-3">
+    <div class="me-3">
+        <img width='300'src="{{currentUser.avatar}}" alt=""/>
+    </div>
+    <div>
+        <p>{{currentUser.name}}</p>
+        <p>{{currentUser.email}}</p>
+    </div>
+</div>
+
+
+{{else}}
+<p>No user found</p>
+{{/if}}

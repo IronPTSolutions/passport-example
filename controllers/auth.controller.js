@@ -1,6 +1,7 @@
 const passport = require('passport');
 const mongoose = require('mongoose');
-const User = require('../models/User.model')
+const User = require('../models/User.model');
+const { sendValidationEmail } = require('../config/mailer.config');
 
 module.exports.register = (req, res, next) => {
   res.render('auth/register', )
@@ -26,6 +27,7 @@ module.exports.doRegister = (req, res, next) => {
 
       return User.create(user)
       .then((user) => {
+        sendValidationEmail(user)
         res.redirect('/')
       })
     }
@@ -37,6 +39,7 @@ module.exports.doRegister = (req, res, next) => {
       next(error)
     }
   })
+  .catch((error) => next(error));
 } 
 
 module.exports.login = (req, res, next) => {
@@ -80,5 +83,18 @@ module.exports.loginWithGoogle = (req, res, next) => {
 
 module.exports.doLoginWithGoogle = (req, res, next) => {
   loginWithStrategy('google-auth', req, res, next);
+}
+
+module.exports.logout = (req, res, next) => {
+  req.session.destroy();
+  res.redirect('/login')
+}
+
+module.exports.activate = (req, res, next) => {
+  User.findByIdAndUpdate(req.params.id, { active: true })
+  .then(() => {
+    res.redirect('/login');
+  })
+  .catch(next);
 }
 
